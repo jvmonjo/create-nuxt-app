@@ -145,11 +145,26 @@ module.exports = {
     console.log()
     console.log(chalk.bold(`  To get started:\n`))
     cd()
+    switch (meta.answers.pm) {
+      case 'npm':
     console.log(`    npm run dev\n`)
+        break;
+      case 'yarn':
+        console.log(`    yarn dev\n`)
+        break;
+    }
     console.log(chalk.bold(`  To build & start for production:\n`))
     cd()
+    switch (meta.answers.pm) {
+      case 'npm':
     console.log(`    npm run build`)
     console.log(`    npm start`)
+        break;
+      case 'yarn':
+        console.log(`    yarn build`)
+        console.log(`    yarn start`)
+        break;
+    }
     console.log()
   }
 }
