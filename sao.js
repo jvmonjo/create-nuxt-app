@@ -173,17 +173,17 @@ module.exports = {
     { gitInit, chalk, isNewFolder, folderName, folderPath },
     { meta }
   ) {
-    // gitInit()
+    gitInit()
 
-    // console.log()
-    // console.log(chalk.bold(`Installing module for nuxt project...`))
-    // installDependency(meta.answers.pm, folderPath, 'src')
+    console.log()
+    console.log(chalk.bold(`Installing module for nuxt project...`))
+    installDependency(meta.answers.pm, folderPath, 'src')
 
-    // if (meta.answers.server === 'firebase') {
-    //   console.log()
-    //   console.log(chalk.bold(`Installing module for firebase cloud function...`))
-    //   installDependency(meta.answers.pm, folderPath, 'functions')
-    // }
+    if (meta.answers.server === 'firebase') {
+      console.log()
+      console.log(chalk.bold(`Installing module for firebase cloud function...`))
+      installDependency(meta.answers.pm, folderPath, 'functions')
+    }
 
     const cd = () => {
       if (isNewFolder) {
