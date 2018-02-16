@@ -64,7 +64,12 @@ module.exports = {
   */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
-  },<% } %>
+  },<% } %><% if (server === 'firebase') { %>
+
+  /*
+  ** Build directory
+  */
+  buildDir: '../functions/nuxt',<% } %>
 
   /*
   ** Build configuration
@@ -99,6 +104,20 @@ module.exports = {
           })
         ]
       }<% } %>
-    }
+    },<% if (server === 'firebase') { %>
+    extractCSS: true,
+    publicPath: '/',
+    babel: {
+      presets: [
+        'env',
+        'stage-0'
+      ],
+      plugins: [
+        ['transform-runtime', {
+          'polyfill': true,
+          'regenerator': true
+        }]
+      ]
+    }<% } %>
   }
 }
