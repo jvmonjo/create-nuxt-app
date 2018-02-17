@@ -132,14 +132,15 @@ module.exports = {
   move(answers) {
     let moveable = {
       gitignore: '.gitignore',
-      '_package.json': 'package.json',
+      'pkg/_package-index.json': 'package.json',
       'server/index-*.js': 'server/index.js'
     }
     if (answers.server === 'firebase') {
       moveable = {
         gitignore: '.gitignore',
-        '_package.json': 'src/package.json',
-        'server/index-*.js': 'src/server/index.js'
+        'pkg/_package-index.json': 'src/package.json',
+        'pkg/_package-functions.json': 'functions/package.json',
+        'pkg/_package-firebase-index.json': 'package.json'
       }
     }
 
@@ -173,22 +174,26 @@ module.exports = {
     { gitInit, chalk, isNewFolder, folderName, folderPath },
     { meta }
   ) {
-    gitInit()
+    // gitInit()
 
     console.log()
-    console.log(chalk.bold(`Installing module for nuxt project...`))
-    installDependency(meta.answers.pm, folderPath, 'src')
+    console.log(chalk.bold(`Installing module...`))
+    installDependency(meta.answers.pm, folderPath)
 
     if (meta.answers.server === 'firebase') {
       console.log()
-      console.log(chalk.bold(`Installing module for firebase cloud function...`))
+      console.log(chalk.bold(`Installing module for Nuxt...`))
+      installDependency(meta.answers.pm, folderPath, 'src')
+
+      console.log()
+      console.log(chalk.bold(`Installing module for Firebase Cloud Function...`))
       installDependency(meta.answers.pm, folderPath, 'functions')
     }
 
     const cd = () => {
       if (isNewFolder) {
         if (meta.answers.server === 'firebase') {
-          console.log(`    ${chalk.cyan('cd')} ${folderName}/src`)
+          console.log(`    ${chalk.cyan('cd')} ${folderName}`)
         } else {
           console.log(`    ${chalk.cyan('cd')} ${folderName}`)
         }
@@ -211,9 +216,8 @@ module.exports = {
     switch (meta.answers.pm) {
       case 'npm':
         if (meta.answers.server === 'firebase') {
-          console.log(`    npm run build`)
-          console.log(`    npm run copy:dist`)
-          console.log(`    npm run serve:firebase`)
+          console.log(`    npm run build:firebase`)
+          console.log(`    npm run start:firebase`)
         } else {
           console.log(`    npm run build`)
           console.log(`    npm start`)
@@ -221,9 +225,8 @@ module.exports = {
         break;
       case 'yarn':
         if (meta.answers.server === 'firebase') {
-          console.log(`    yarn build`)
-          console.log(`    yarn copy:dist`)
-          console.log(`    yarn serve:firebase`)
+          console.log(`    yarn build:firebase`)
+          console.log(`    yarn start:firebase`)
         } else {
           console.log(`    yarn build`)
           console.log(`    yarn start`)
