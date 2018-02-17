@@ -174,7 +174,7 @@ module.exports = {
     { gitInit, chalk, isNewFolder, folderName, folderPath },
     { meta }
   ) {
-    // gitInit()
+    gitInit()
 
     console.log()
     console.log(chalk.bold(`Installing module...`))
